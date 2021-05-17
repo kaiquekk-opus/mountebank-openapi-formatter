@@ -122,22 +122,20 @@ function buildStubsStruct (api) {
 function load (options) {
     const fs = require('fs-extra'),
         SwaggerParser = require('swagger-parser');
-        return SwaggerParser.validate(options.configfile).then(validatedApi => {
-            const filename = validatedApi.info.title + '.json',
-                imposters = {
-                    port: 9090,
-                    protocol: validatedApi.schemes !== undefined ? validatedApi.schemes : 'http',
-                    name: validatedApi.info.title,
-                    stubs:  buildStubsStruct(validatedApi)
-                };
-                console.log(JSON.stringify(validatedApi, null, 2));
-                fs.writeFileSync(filename, JSON.stringify(imposters, null, '\t'));
-                return { imposters: [imposters] };
-                
-        }).catch(e => {
-            console.error('Unable to build imposters from OpenApi configfile.');
-            throw e;
-        });
+    return SwaggerParser.validate(options.configfile).then(validatedApi => {
+        const filename = validatedApi.info.title + '.json',
+            imposters = {
+                port: 9090,
+                protocol: validatedApi.schemes !== undefined ? validatedApi.schemes : 'http',
+                name: validatedApi.info.title,
+                stubs: buildStubsStruct(validatedApi)
+            };
+        fs.writeFileSync(filename, JSON.stringify(imposters, null, '\t'));
+        return { imposters: [imposters] };
+    }).catch(e => {
+        console.error('Unable to build imposters from OpenApi configfile.');
+        throw e;
+    });
 }
 
 function save (options, imposters) {
@@ -148,4 +146,4 @@ function save (options, imposters) {
 module.exports = {
     load,
     save
-}
+};

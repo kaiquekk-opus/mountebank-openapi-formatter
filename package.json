@@ -10,18 +10,20 @@
     "url": "https://github.com/kaiquekk-opus/mountebank-openapi-formatter"
   },
   "scripts": {
-    "test": "node node_modules/.bin/eslint **/*.js && node node_modules/.bin/_mocha test/**/*.js"
+    "test": "node ./node_modules/.bin/eslint **/*.js && node ./node_modules/.bin/_mocha ./test/**/*.js"
   },
   "keywords": [
     "mountebank",
-    "openapi",
-    "swagger"
+    "openapi"
   ],
   "dependencies": {
     "fs-extra": "10.0.0",
     "swagger-parser": "10.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "7.26.0",
+    "mocha": "8.4.0"
+  },
   "files": [
     "src",
     "README.md",
